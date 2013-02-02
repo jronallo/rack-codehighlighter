@@ -37,7 +37,7 @@ module Rack
         nodes = doc.search(@opts[:element])
         nodes.each do |node|
           s = node.inner_html || "[++where is the code?++]"
-          raise s
+          raise s.encoding
           if @opts[:markdown]
             node.parent.swap(send(@highlighter, s))
           else
