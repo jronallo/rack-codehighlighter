@@ -37,6 +37,7 @@ module Rack
         nodes = doc.search(@opts[:element])
         nodes.each do |node|
           s = node.inner_html || "[++where is the code?++]"
+          raise s
           if @opts[:markdown]
             node.parent.swap(send(@highlighter, s))
           else
@@ -100,13 +101,11 @@ module Rack
     end
 
     def coderay(string)
-      raise string
       lang = 'unknown'
       refs = @opts[:pattern].match(string)  # extract language name
       if refs
         lang = refs[1]
         str = unescape_html(string.sub(@opts[:pattern], ""))
-        raise "unescape_html: #{str}"
         "<pre class='CodeRay'>#{::CodeRay.encoder(:html).encode str, lang}</pre>"
       else
         "<pre class='CodeRay'>#{string}</pre>"
