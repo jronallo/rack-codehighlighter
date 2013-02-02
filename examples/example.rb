@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 path = File.expand_path("../lib")
 $:.unshift(path) unless $:.include?(path)
 
