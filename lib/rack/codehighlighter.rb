@@ -33,11 +33,10 @@ module Rack
 
         content = ""
         response.each { |part| content += part }
-        doc = Nokogiri::HTML(content, nil, 'UTF-8')
+        doc = Nokogiri::HTML(content)
         nodes = doc.search(@opts[:element])
         nodes.each do |node|
           s = node.inner_html || "[++where is the code?++]"
-          raise node.to_s
           if @opts[:markdown]
             node.parent.swap(send(@highlighter, s))
           else
