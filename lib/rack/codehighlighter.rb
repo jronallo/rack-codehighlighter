@@ -100,13 +100,13 @@ module Rack
     end
 
     def coderay(string)
-      logger.write string
+      STDOUT.puts string
       lang = 'unknown'
       refs = @opts[:pattern].match(string)  # extract language name
       if refs
         lang = refs[1]
         str = unescape_html(string.sub(@opts[:pattern], ""))
-        logger.write "unescape_html: #{str}"
+        STDOUT.puts "unescape_html: #{str}"
         "<pre class='CodeRay'>#{::CodeRay.encoder(:html).encode str, lang}</pre>"
       else
         "<pre class='CodeRay'>#{string}</pre>"
